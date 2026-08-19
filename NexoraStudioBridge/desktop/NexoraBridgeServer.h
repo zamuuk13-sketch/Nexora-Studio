@@ -3,6 +3,7 @@
 #include <QObject>
 #include <QQueue>
 #include <QJsonObject>
+#include <QMap>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <QTimer>
@@ -40,7 +41,6 @@ private:
 
     void handleRequest(QTcpSocket *socket, const QByteArray &request);
     void sendJson(QTcpSocket *socket, int statusCode, const QJsonObject &body);
-    QJsonObject dequeueCommand();
     QString nextRequestId();
     void setState(const QString &state);
     bool authorized(QTcpSocket *socket, const QMap<QByteArray, QByteArray> &headers) const;
@@ -53,4 +53,5 @@ private:
     QString m_token;
     quint16 m_port = 28473;
     bool m_studioSeen = false;
+    qint64 m_lastStudioSeenMs = 0;
 };
