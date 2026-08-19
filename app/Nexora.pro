@@ -7,13 +7,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     bridge/BridgeServer.cpp \
-    aiprofiler.cpp \
+    aiprofile.cpp \
     agent.cpp
 
 HEADERS += \
     mainwindow.h \
     bridge/BridgeServer.h \
-    aiprofiler.h \
+    aiprofile.h \
     agent.h
 
-win32:RC_ICONS = resources/nexora.ico
+# Icon is optional; the build must not depend on a missing .ico file.
+# win32:RC_ICONS = resources/nexora.ico
