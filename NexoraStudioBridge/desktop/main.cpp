@@ -1,5 +1,6 @@
 #include <QCoreApplication>
 #include <QDebug>
+#include <QJsonDocument>
 #include "NexoraBridgeServer.h"
 
 int main(int argc, char *argv[]) {
