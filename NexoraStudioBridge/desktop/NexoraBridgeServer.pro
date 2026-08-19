@@ -5,8 +5,12 @@ TEMPLATE = app
 
 TARGET = NexoraBridgeServer
 
-SOURCES += NexoraBridgeServer.cpp
-HEADERS += NexoraBridgeServer.h
+SOURCES += \
+    main.cpp \
+    NexoraBridgeServer.cpp
+
+HEADERS += \
+    NexoraBridgeServer.h
 
 # The bridge server can be embedded into the Nexora desktop later.
 # This standalone target is useful for transport testing.
