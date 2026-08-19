@@ -6,16 +6,14 @@ TARGET = Nexora
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    bridgeclient.cpp \
+    bridge/BridgeServer.cpp \
     aiprofiler.cpp \
     agent.cpp
 
 HEADERS += \
     mainwindow.h \
-    bridgeclient.h \
+    bridge/BridgeServer.h \
     aiprofiler.h \
     agent.h
-
-RESOURCES += resources.qrc
 
 win32:RC_ICONS = resources/nexora.ico
