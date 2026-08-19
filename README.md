@@ -1,24 +1,56 @@
-# LemonadeAI V1
+# Nexora
 
-Desktop Roblox creation agent built with Qt/C++ and qmake.
+Nexora is a Windows desktop Roblox creation agent plus a Roblox Studio plugin.
 
-## Architecture
-- Qt/QML desktop UI
-- Gemini API client using the user's own API key
-- Configurable AI profile (name, instructions)
-- Agent layer and tool registry
-- Local Roblox Studio bridge endpoint
-- Build/doctor workflow through `compilar.bat`
+## Repository layout
+
+```text
+app/        Qt/C++ desktop application and local bridge
+plugin/     Roblox Studio plugin source
+compilar.bat
+```
+
+The plugin and desktop application are deliberately separate.
+
+## Desktop
+
+- Qt Widgets + C++17
+- qmake project: `app/Nexora.pro`
+- local bridge bound to `127.0.0.1:28473`
+- black/white professional workspace UI
+- AI profile model (name/provider/model/API key/endpoint/system prompt)
+- tool registry for project, model, NPC, UI, animation, scripting and testing operations
+
+## Studio plugin
+
+`plugin/NexoraPlugin.lua` is the standalone Studio plugin entry point. It provides the Nexora toolbar/window and executes bridge commands directly in the connected Studio session.
 
 ## Build
-Run `compilar.bat` on Windows with Qt + MinGW/qmake available in PATH.
 
-Commands:
-- `compilar.bat` — build Release
-- `compilar.bat doctor` — inspect qmake/Qt/g++/make
-- `compilar.bat clean` — remove build directory
-- `compilar.bat rebuild` — clean then build
-- `compilar.bat run` — build and launch
+Run `compilar.bat` from Windows:
 
-## Important
-The Google account/cloud project system and the Studio-side HTTP transport need real OAuth/backend credentials and Studio transport integration before they can be called production-ready. This repository deliberately does not contain secrets or pretend those integrations are complete.
+- `compilar.bat doctor` — detect qmake/Qt/g++
+- `compilar.bat` — Release build
+- `compilar.bat rebuild` — clean + build
+- `compilar.bat clean` — remove build output
+- `compilar.bat run` — build + launch
+
+The script detects the installed qmake/Qt/g++ toolchain instead of assuming a fixed version.
+
+## Security boundary
+
+The desktop bridge binds only to loopback (`127.0.0.1`). It is not intended to be exposed to the network. API keys are user-provided configuration and are not committed to this repository.
+
+## Current v1 transport flow
+
+```text
+Nexora Desktop
+    ↓ localhost HTTP
+127.0.0.1:28473
+    ↓
+Nexora Studio Plugin
+    ↓
+Roblox Studio DataModel
+```
+
+Production OAuth/account sync, cloud project storage, and marketplace publication are intentionally separate from the local v1 build and require their own credentials/configuration.
